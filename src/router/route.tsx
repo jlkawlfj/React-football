@@ -12,18 +12,18 @@ const TeamCalendar = React.lazy(() => import('../pages/TeamCalendar'))
 
 const MainRouter = () => {
   return (
-    <Router history={history}>
+    <Router history={history} >
       <QueryParamProvider ReactRouterRoute={Route}>
         <div className='main'>
           <Header />
           <div className='wrapper'>
             <React.Suspense fallback={<Preloader/>}>
               <Switch>
-                <Route exact path='/leagues_page' component={LeaguesPage} />
-                <Route exact path='/teams_page' component={TeamsPage} />
-                <Route exact path='/league_calendar' component={LeagueCalendar} />
-                <Route exact path='/team_calendar' component={TeamCalendar} />
-                <Redirect exact from='/' to='/leagues_page' />
+                <Route path='/leagues_page' component={LeaguesPage} />
+                <Route path='/teams_page' component={TeamsPage} />
+                <Route path='/league_calendar' component={LeagueCalendar} />
+                <Route path='/team_calendar' component={TeamCalendar} />
+                <Redirect from='/' to='/leagues_page' />
               </Switch>
             </React.Suspense>
           </div>
