@@ -32,7 +32,7 @@ const leagueSlice: any = createSlice({
       state.isFetching = false
       state.isRejected = false
     },
-    [fetchLeagueMatches.rejected]: (state, action: PayloadAction<any>) => {
+    [fetchLeagueMatches.rejected]: (state, action: any) => {
       // @ts-ignore
       //@ts-nocheck
       const tempRequseError = action.error

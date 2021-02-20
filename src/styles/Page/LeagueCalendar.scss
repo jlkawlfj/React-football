@@ -1,0 +1,28 @@
+.league-calendar__matches-tools {
+  border: 2px solid #ececec;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 6px 1px 6px;
+  border-radius: 3px;
+  padding-bottom: 4px;
+}
+.league-calendar__selector-date {
+  max-width: 320px;
+}
+.league-calendar__date-range .date-range {
+  margin-left: 12px;
+}
+@media (max-width: 640px) { 
+  .league-calendar__date-range .date-range {
+    margin-left: 0;
+  } 
+  .league-calendar__matches-tools {
+    display: block;
+  }
+}
+@media (max-width: 460px) {
+  .league-calendar__matches-tools {
+    display: block;
+  }
+}

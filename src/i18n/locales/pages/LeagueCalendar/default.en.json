@@ -1,0 +1,12 @@
+{
+  "en": {
+    "league": "League",
+    "matches": "Matches",
+    "selectSeason": "Select season",
+    "selectDate": "Select date",
+    "seasonNotSelected": "Season not selected",
+    "finished": "finished",
+    "postroned": "postroned",
+    "scheduled": "scheduled"
+  }
+}

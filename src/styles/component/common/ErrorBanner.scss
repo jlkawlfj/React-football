@@ -1,0 +1,12 @@
+.error-banner {
+  text-align: center;
+  height: 55vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.error-banner__additional-message {
+  color: gray;
+  font-size: 1rem;
+  text-align: center;
+}

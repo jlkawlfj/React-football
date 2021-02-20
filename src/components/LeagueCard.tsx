@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 
-const LeagueCard: React.FC<any> = ({ league, season }): React.ReactElement => {
+const LeagueCard: React.FC<any> = ({ league, season, matchesNameLink, teamsNameLink }): React.ReactElement => {
   const seasonUrl = season ? `&season=${season}` : ''
   return (
     <div className='league-card'>
@@ -15,7 +15,7 @@ const LeagueCard: React.FC<any> = ({ league, season }): React.ReactElement => {
               alt={`emblem ${league.name} league`}
             />
           ) : (
-            <i className='far fa-image'></i>
+            <img alt='' src='http://placehold.it/25/b0b0b0' />
           )}
         </label>
 
@@ -26,14 +26,14 @@ const LeagueCard: React.FC<any> = ({ league, season }): React.ReactElement => {
           as={Link} 
           to={`/teams_page?id=${league.id}${seasonUrl}`}
         >
-          teams
+          {teamsNameLink}
         </Button>
         <Button
           variant='info'
           as={Link}
           to={`/league_calendar?id=${league.id}${seasonUrl}`}
         >
-          matches
+          {matchesNameLink}
         </Button>
       </div>
     </div>

@@ -1,8 +1,15 @@
 import React from 'react'
 import { format } from 'date-fns'
-import classnames from 'classnames'
+import classnames from 'classnames' 
+import { enGB, ru } from 'date-fns/locale'
 
-const MatchCard = ({ match }: any) => {
+const MatchCard = ({ match, language, finished, postroned, scheduled }: any) => {
+  let statusMatch = 'status'
+
+  if(match.status === 'FINISHED') statusMatch = finished
+  else if(match.status === 'POSTRONED') statusMatch = postroned
+  else if(match.status === 'SCHEDULED') statusMatch = scheduled
+
   return (
     <div className='match-card'>
       <div className='match-card__teams-block'>
@@ -20,8 +27,8 @@ const MatchCard = ({ match }: any) => {
         </div>
         <div className='match-card__team-name'>{match?.awayTeam.name || ''}</div>
       </div>
-      <div>{format(new Date(match.utcDate), 'dd MMMM yyyy')}</div>
-      <div>{match.status}</div>
+      <div>{format(new Date(match.utcDate), 'dd MMMM yyyy', {locale: language === 'en' ? enGB : ru})}</div>
+      <div>{statusMatch}</div>
     </div>
   )
 }

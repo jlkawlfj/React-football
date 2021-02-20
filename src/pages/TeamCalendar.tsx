@@ -4,6 +4,7 @@ import format from 'date-fns/format'
 import { useQueryParam, NumberParam } from 'use-query-params'
 import { fetchMatches } from '../redux/thunk/TeamListThunk'
 import { fetchTeamInfo } from '../redux/thunk/TeamInfoThunk'
+import { useTranslation } from 'react-i18next'
 
 import DateRange from '../components/DateRange'
 import Preloader from '../components/common/Preloader'
@@ -11,16 +12,19 @@ import ErrorBanner from '../components/common/ErrorBanner'
 import NoFound from '../components/common/NoFound'
 import MatchCard from '../components/MatchCard'
 import TeamCard from '../components/TeamCard'
+import TeamCardLoader from '../components/TeamCardLoader'
 
 const TeamCalendar: React.FC = () => {
   const [dateFrom, setDateFrom] = React.useState(new Date('2020/04/08'))
   const [dateTo, setDateTo] = React.useState(new Date('2021/02/10'))
   const [id] = useQueryParam('id', NumberParam)
+  const { t } = useTranslation(['teamCalendar'])
 
   const dispatch = useDispatch()
   const { matches, count, isTryFetching, isFetching, isRejected, error, errorMessage } = useSelector(({ teamList }: any) => teamList)
   const  isFetchingInfo = useSelector(({ teamInfo }: any) => teamInfo.isFetching)
   const { infoAboutTeam } = useSelector(({ teamInfo }: any) => teamInfo)
+  const { language } = useSelector(({ appReducer }: any) => appReducer)
 
   React.useEffect(() => {
     dispatch(
@@ -42,17 +46,17 @@ const TeamCalendar: React.FC = () => {
   return (
     <div className='team-calendar'>
       <div className='team-calendar__header'>
-        <h1>TeamCalendar</h1>
-        {!isFetchingInfo ? <TeamCard team={infoAboutTeam} /> : <Preloader />}
-        Teams match: {count}
+        {!isFetchingInfo ? <TeamCard team={infoAboutTeam} /> : <TeamCardLoader />}
+        <div>{t('teamsMatch')}: {count}</div>
       </div>
       <div className='search-tool'>
-        <div>Select date</div>
+        <div>{t('selectDate')}</div>
         <DateRange
           dateFrom={dateFrom}
           dateTo={dateTo}
           setDateFrom={setDateFrom}
-          setDateTo={setDateTo}
+          setDateTo={setDateTo} 
+          language={language}
         />
       </div>
       {isTryFetching && !count && <NoFound type={'matches'} />}

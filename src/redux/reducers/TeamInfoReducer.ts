@@ -1,7 +1,36 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { fetchTeamInfo } from '../thunk/TeamInfoThunk'
 
-const initialState: any = {
+interface player {
+  id: number
+  name: string
+  position: string
+  dateOfBirth: Date
+  nationality: string
+  role: string
+}
+interface IInitialState {
+  infoAboutTeam: {
+    crestUrl: string
+    team: string
+    area: {
+      name: string
+    },
+    clubColors: string
+    founded: any
+    venue: string
+    website: string
+    squad: Array<player>,
+  }
+  filters: any
+  isTryFetching: boolean
+  isFetching: boolean
+  isRejected: boolean
+  error: number | null
+  errorMessage: string | null
+}
+
+const initialState: IInitialState = {
   infoAboutTeam: {
     crestUrl: '',
     team: '',

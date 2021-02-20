@@ -1,0 +1,41 @@
+.match-card {
+  text-align: center;
+  font-size: 15px;
+  width: 100%;
+  border-bottom: 2px solid #ececec;
+  height: 105px;
+}
+.match-card__teams-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  height: 44px;
+}
+.match-card__team-name {
+  width: 100px;
+}
+.match-card__scores {
+  color: #fff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  font-size: 20px;
+  text-align: center;
+  font-weight: 700;
+  height: 35px;
+  width: 75px;
+  border-radius: 2px;
+  background: gray;
+}
+.match-card__scores--win {
+  background: #00aa32;
+}
+.match-card__scores--draw {
+  background: #ffc60d;
+}
+.match-card__scores--lose {
+  background: #ff003c;
+}

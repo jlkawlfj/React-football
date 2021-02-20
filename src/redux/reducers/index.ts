@@ -5,6 +5,7 @@ import { leaguesReducer } from './LeaguesReducer'
 import { leagueReducer } from './LeagueReducer'
 import { teamListReducer } from './TeamListReducer'
 import { teamInfoReducer } from './TeamInfoReducer'
+import { appReducer } from './AppReducer'
 
 const rootReducer = combineReducers<any>({
   teams: teamsReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers<any>({
   teamList: teamListReducer,
   league: leagueReducer,
   teamInfo: teamInfoReducer,
+  appReducer: appReducer,
   routerReducer
 })
 

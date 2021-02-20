@@ -1,0 +1,35 @@
+.date-range {
+  min-width: 440px;
+  display: flex;
+  justify-content: space-between;
+}
+.date-range__icon {
+  display: flex;
+  align-items: center;
+}
+.date-input {
+  cursor: pointer;
+  padding: 5px 15px;
+  border: 0;
+  border-radius: 4px;
+  background-color: #216ba5;
+  font: inherit;
+  color: #fff;
+}
+.date-input--disabled {
+  background-color: #e2062c;
+}
+.date-range .fas.fa-exchange-alt  {
+  line-height: 40px;
+  font-size: 25px;
+}
+@media (max-width: 800px) {
+  .date-range {
+    min-width: 340px;
+  }
+}
+@media (max-width: 460px) {
+  .date-range {
+    min-width: 240px;
+  }
+}

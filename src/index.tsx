@@ -1,10 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './App.scss'
+import './styles/App.scss'
 import reportWebVitals from './reportWebVitals'
 import MainRouter from './router/route'
 import store from './redux/store'
 import { Provider } from 'react-redux'
+import './i18n/index.ts'
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,0 +1,77 @@
+@import '~bootstrap/scss/bootstrap';
+@import './component/_all.scss';
+@import './Page/all-pages';
+@import './component/common/_all.scss';
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  overflow-y: scroll;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.main {
+  background-color: #fff;
+  color: #282c34;
+  min-height: 100vh;
+  font-size: calc(10px + 2vmin);
+  height: 100%;
+}
+.main-dark {
+  background-color: #282c34;
+  color: #fff;
+}
+.wrapper-header { 
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between; 
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1156px;
+}
+.wrapper {
+  margin: 0 auto;
+  max-width: 1156px;
+  width: 100%;
+  height: 100%;
+  padding: 10px 3px;
+  overflow: hidden;
+  padding-bottom: 30px;
+}
+header .fas.fa-futbol {
+  height: 30px;
+  width: 30px;
+  font-size: 30px;
+  margin-right: 4px;
+}
+
+.search-tool {
+  padding-bottom: 6px;
+  padding-bottom: 4px; 
+}
+.search-tool .date-range {
+
+  border-top: 1px solid #ececec;
+  border-bottom: 1px solid #ececec;
+  padding: 3px 0;
+}
+.form-control {
+  display: inline-block;
+}
+.leagues-page__list {
+  font-size: 14px;
+}
+
+@media (max-width: 980px) {
+  .wrapper {
+    max-width: 980px;
+  }
+} 

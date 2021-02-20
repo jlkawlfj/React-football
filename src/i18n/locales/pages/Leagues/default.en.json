@@ -1,0 +1,12 @@
+{
+  "en": {
+    "leaguesTierOne": "Main football leagues in the world",
+    "selectSeason": "Select season",
+    "leagues": "Leagues",
+    "selectedSeason": "Selected season",
+    "currentSeason": "Current season",
+    "seasonNotSelected": "Season not selected",
+    "matches": "Matches",
+    "teams": "Teams"
+  }
+}

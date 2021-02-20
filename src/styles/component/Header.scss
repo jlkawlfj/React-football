@@ -1,0 +1,19 @@
+.Header.navbar {
+  backdrop-filter: saturate(180%) blur(16px);
+  background-color: rgba(248, 249, 250, 0.8);
+  color: rgba(0, 0, 0, 0.9);
+}
+.Header--dark.navbar {
+  color: #fff;
+  background-color: rgba(52, 58, 64, 0.7);
+}
+.Header .navbar-brand {
+  color: rgba(0, 0, 0, 0.9);
+}
+.Header--dark .navbar-brand:hover, .Header--dark .navbar-brand:focus {
+  color: #fff;
+
+}
+.Header--dark .navbar-brand {
+  color: #fff;
+}

@@ -4,9 +4,11 @@ import Accordion from 'react-bootstrap/Accordion'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import { format } from 'date-fns'
+import { useTranslation } from 'react-i18next'
 
 const TeamCard = ({ team }: any) => {
   const [active, setActive] = React.useState('1')
+  const { t } = useTranslation(['teamCalendar'])
 
   const handleClick = () => {
     setActive(active === '0' ? '1' : '0')
@@ -15,25 +17,38 @@ const TeamCard = ({ team }: any) => {
   return (
     <div className='team-card'>
       <div className='team-card__header'>
-        <img
-          className='team-card__img-team'
-          src={team?.crestUrl || ''}
-          alt={`Label ${team.shortName}`}
-        />
-        <div>
-          <div>{team?.name || ''}</div>
-          <div>Country: {team?.area.name || ''}</div>
-          <div>Club colors: {team?.clubColors || ''}</div>
-          <div>Founded: {team?.founded || ''}</div>
-          <div>Venue: {team?.venue || ''} </div>
-          <div>Website: {team?.website || ''}</div>
+        <div className='team-card__image'>
+          <img
+            loading='lazy'
+            className='team-card__img-team'
+            src={team?.crestUrl || ''}
+            alt={`Label ${team.shortName}`}
+          />
+        </div>
+        <div className='team-card__info'>
+          <h1>{team?.name || ''}</h1>
+          <div>
+            {t('country')}: {team?.area.name || ''}
+          </div>
+          <div>
+            {t('clubColors')}: {team?.clubColors || ''}
+          </div>
+          <div>
+            {t('founded')}: {team?.founded || ''}
+          </div>
+          <div>
+            {t('venue')}: {team?.venue || ''}{' '}
+          </div>
+          <div>
+            {t('website')}: {team?.website || ''}
+          </div>
         </div>
       </div>
       <Accordion defaultActiveKey={'0'}>
         <Card>
           <Card.Header>
             <Button size='lg' block onClick={handleClick} variant='link'>
-              Squad
+              {t('squad')}
             </Button>
           </Card.Header>
           <Accordion.Collapse eventKey={active}>
@@ -41,10 +56,10 @@ const TeamCard = ({ team }: any) => {
               <Table striped bordered hover size='sm'>
                 <thead>
                   <tr>
-                    <th>Full Name</th>
-                    <th>Country</th>
-                    <th>Position</th>
-                    <th>Birthday</th>
+                    <th>{t('name')}</th>
+                    <th>{t('country')}</th>
+                    <th>{t('position')}</th>
+                    <th>{t('birthday')}</th>
                   </tr>
                 </thead>
                 <tbody>

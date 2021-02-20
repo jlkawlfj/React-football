@@ -1,0 +1,49 @@
+.league-card {
+  color: #000;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.list-group-item {}
+.league-card__inf {
+  position: relative;
+}
+.league-card__emblem {
+  position: absolute;
+}
+.league-card__img {
+  height: 25px;
+  width: 25px;
+}
+.league-card__name {
+  padding-left: 30px;
+}
+.league-card .far.fa-image {
+  font-size: 25px;
+}
+.league-card__links {
+  max-width: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.league-card__links a {
+  min-width: 95px;
+}
+@media (max-width: 640px) {
+  .league-card__inf {
+    width: 180px;
+  }
+  .league-card {
+    flex-direction: column;
+  }
+}
+@media (max-width: 460px) {
+  .league-card {
+    flex-direction: column;
+  }
+}

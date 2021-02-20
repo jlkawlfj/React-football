@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useQueryParam, NumberParam } from 'use-query-params'
 import { fetchTeamsByLeague } from '../redux/thunk/TeamsThunk'
+import { useTranslation } from 'react-i18next'
 
 import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form'
@@ -17,6 +18,7 @@ const TeamsPage = () => {
   const [id] = useQueryParam('id', NumberParam)
   const [season, setSeason] = useQueryParam('season', NumberParam)
   const dispatch = useDispatch()
+  const { t } = useTranslation(['teams'])
 
   const { teams, count, name, isFetching, isRejected, isTryFetching, error, errorMessage } = useSelector(
     ({ teams }: any) => teams
@@ -45,11 +47,11 @@ const TeamsPage = () => {
   
   return (
     <div className='teams-page'>
-      <h1>{name}</h1>
-      <div>Teams: {count}</div>
-      <div className='search-tool teams-tool'>
+      <h1>{t('league')}: {name}</h1>
+      <div>{t('teams')}: {count}</div>
+      <div className='search-tool teams-page__tools'>
         <div>
-          <Form.Label>Select season</Form.Label>
+          <Form.Label>{t('selectSeason')}</Form.Label>
           <Form.Control as='select' custom value={`${season}`} onChange={handleSelector}>
             <option value={2020}>2020</option>
             <option value={2019}>2019</option>
@@ -59,12 +61,12 @@ const TeamsPage = () => {
           </Form.Control>
         </div>
         <div>
-          <Form.Label>Team your name</Form.Label>
+          <Form.Label>{t('nameYourTeam')}</Form.Label>
           <FormControl
             value={nameTeam}
             onChange={handleInput}
             type='text'
-            placeholder='Enter team'
+            placeholder={t('enterName')}
           />
         </div>
       </div>

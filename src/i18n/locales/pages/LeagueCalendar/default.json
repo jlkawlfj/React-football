@@ -1,0 +1,12 @@
+{
+  "ru": {
+    "league": "Лига",
+    "matches": "Матчей",
+    "selectSeason": "Выберите сезон",
+    "selectDate": "Выберите даты",
+    "seasonNotSelected": "Сезон не выбран",
+    "finished": "окончен",
+    "postroned": "перенесен",
+    "scheduled": "по-расписанию"
+  }
+}

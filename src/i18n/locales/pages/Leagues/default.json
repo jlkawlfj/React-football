@@ -1,0 +1,12 @@
+{
+  "ru": {
+    "leaguesTierOne": "Главные футбольные лиги планеты",
+    "selectSeason": "Выберите сезон",
+    "leagues": "Лиги",
+    "selectedSeason": "Выбранный сезон",
+    "currentSeason": "Текущий сезон",
+    "seasonNotSelected": "Сезон не выбран",
+    "matches": "Матчи",
+    "teams": "Команды"
+  }
+}

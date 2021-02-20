@@ -1,0 +1,19 @@
+.teams-page__tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.teams-page__tools div {
+  width: 550px;
+}
+.teams-page__tools div + div {
+  padding-left: 10px;
+}
+@media (max-width: 640px) {
+  .teams-page__tools {
+    display: block;
+  } 
+  .teams-page__tools div+div {
+    padding-left: 0;
+  } 
+}
