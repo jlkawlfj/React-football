@@ -12,6 +12,7 @@ import Preloader from '../components/common/Preloader'
 import ErrorBanner from '../components/common/ErrorBanner'
 import Form from 'react-bootstrap/Form'
 import NoFound from '../components/common/NoFound'
+import { RootState } from '../redux/reducers'
 
 const plan = 'TIER_ONE'
 
@@ -28,14 +29,14 @@ const LeaguesPage = () => {
     error,
     errorMessage,
     isTryFetching,
-  } = useSelector(({ leagues }: any) => leagues)
+  } = useSelector(({ leaguesState }: RootState) => leaguesState)
 
   React.useEffect(() => {
     dispatch(fetchAllLeagues({ plan }))
   }, [dispatch])
 
-  const handleSelector = (e: any) => {
-    setSeason(e.target.value)
+  const handleSelector = (e: React.ChangeEvent<{ value: unknown }>) => {
+    setSeason(e.target.value as number)
   }
 
   return (

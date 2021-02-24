@@ -1,14 +1,19 @@
 import axios from '../../../utils/axios'
+import { IFetchAllLeaguesArg } from '../LeaguesThunk'
+import { IFetchLeagueMatchesArg } from '../LeagueThunk'
+import { IFetchTeamInfoArg } from '../TeamInfoThunk'
+import { IFetchMatchesArg } from '../TeamListThunk'
+import { ILeagueTeamsArg } from '../TeamsThunk'
 
 export const leaguesAPI = {
-  fetchAll(plan: any) {
+  fetchAll({ plan }: IFetchAllLeaguesArg) {
     return axios.get('/competitions', {
       params: {
         plan,
       },
     })
   },
-  fetchMatchesById(id: any, season: any, dateFrom: any, dateTo: any) {
+  fetchMatchesById({ id, season, dateFrom, dateTo }: IFetchLeagueMatchesArg) {
     return axios.get(`/competitions/${id}/matches`, {
       params: {
         season,
@@ -20,17 +25,14 @@ export const leaguesAPI = {
 }
 
 export const teamsAPI = {
-  fetchTeamsByLeague(id: any, season: any) {
+  fetchTeamsByLeague({ id, season }: ILeagueTeamsArg) {
     return axios.get(`/competitions/${id}/teams`, {
       params: {
         season,
       },
     })
   },
-  fetchById(id: any) {
-    return axios.get(`/teams/${id}`)
-  },
-  fetchMatchesById(id: any, dateFrom: any, dateTo: any) {
+  fetchMatchesById({ id, dateFrom, dateTo }: IFetchMatchesArg) {
     return axios.get(`/teams/${id}/matches`, {
       params: {
         dateFrom,
@@ -38,7 +40,7 @@ export const teamsAPI = {
       },
     })
   },
-  fetchTeamInfo(id: number) {
+  fetchTeamInfo({ id }: IFetchTeamInfoArg) {
     return axios.get(`/teams/${id}`)
   },
 }

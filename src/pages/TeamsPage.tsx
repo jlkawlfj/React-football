@@ -11,17 +11,20 @@ import ErrorBanner from '../components/common/ErrorBanner'
 import Preloader from '../components/common/Preloader'
 import NoFound from '../components/common/NoFound'
 import TeamItem from '../components/TeamItem'
+import { RootState } from '../redux/reducers'
+import { ITeam } from '../redux/reducers/TeamsReducer'
 
 const TeamsPage = () => {
   const [nameTeam, setNameTeam] = React.useState('')
-  const [teamsFilters, setTeamsFilters] = React.useState([])
+  const [teamsFilters, setTeamsFilters] = React.useState<Array<ITeam>>([])
   const [id] = useQueryParam('id', NumberParam)
   const [season, setSeason] = useQueryParam('season', NumberParam)
   const dispatch = useDispatch()
   const { t } = useTranslation(['teams'])
 
-  const { teams, count, name, isFetching, isRejected, isTryFetching, error, errorMessage } = useSelector(
-    ({ teams }: any) => teams
+  const { teams, count, name, isFetching, isRejected, 
+    isTryFetching, error, errorMessage } = useSelector(
+    ({ teamsState }: RootState) => teamsState
   )
   React.useEffect(() => {
     dispatch(fetchTeamsByLeague({ id, season }))
@@ -35,8 +38,8 @@ const TeamsPage = () => {
   const handleInput = (e: any) => {
     setNameTeam(e.target.value)
     setTeamsFilters(
-      teams.filter((item: any) => {
-        return item.shortName.toLowerCase().search(e.target.value.trim().toLowerCase()) !== -1
+      teams?.filter((team) => {
+        return team.shortName.toLowerCase().search(e.target.value.trim().toLowerCase()) !== -1
       })
     )
   }

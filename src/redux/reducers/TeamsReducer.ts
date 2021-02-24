@@ -1,64 +1,39 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { fetchTeamsByLeague } from '../thunk/TeamsThunk'
-  
-interface teamOfListCompetition {
-    id: number
-    area: {
-      id: number
-      name: string
-    }
-    name: string
-    shortName: string
-    tla: string
-    crestUrl: string
-    address: string
-    phone: string
-    webstire: string
-    email: string
-    founded: number
-    clubColors: string
-    venue: string
-    lastUpdate: Date
-  }
 
-interface teamsListCompetition {
-  count: number
-  filters: any
+export interface ITeam {
   id: number
-  competition: {
+  area: {
     id: number
-    area: {
-      id: number
-      name: string
-    }
     name: string
-    code: string
-    plan: string
-    lastUpdated: Date
   }
-  season: {
-    id: number
-    startDate: string
-    endDate: string
-    currentMatchday: null
-    availableStages: Array<string>
-  }
-  teams: Array<teamOfListCompetition>
+  name: string
+  shortName: string
+  tla: string
+  crestUrl: string
+  address: string
+  phone: string
+  webstire: string
+  email: string
+  founded: number
+  clubColors: string
+  venue: string
+  lastUpdate: string
 }
 
-interface IInitialState {
-  teams: Array<teamOfListCompetition>,
-  count: number,
-  name: string,
-  filters: any,
-  isTryFetching: boolean,
-  isFetching: boolean,
-  isRejected: boolean,
-  error: number | null,
-  errorMessage: string | null,
+export interface ITeamsState {
+  teams: Array<ITeam>
+  count: number
+  name: string
+  filters: any
+  isTryFetching: boolean
+  isFetching: boolean
+  isRejected: boolean
+  error: number | null
+  errorMessage: string | null
 }
 
-const initialState: IInitialState = {
+const initialState: ITeamsState = {
   teams: [],
   count: 0,
   name: '',
@@ -70,17 +45,17 @@ const initialState: IInitialState = {
   errorMessage: null,
 }
 
-const teamsSlice: any = createSlice({
+const teamsSlice = createSlice({
   name: 'teams',
   initialState,
   reducers: {},
-  extraReducers: {
-    [fetchTeamsByLeague.pending]: (state) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchTeamsByLeague.pending, (state) => {
       state.isFetching = true
       state.errorMessage = null
       state.error = null
-    },
-    [fetchTeamsByLeague.fulfilled]: (state, { payload }: PayloadAction<teamsListCompetition>) => {
+    })
+    builder.addCase(fetchTeamsByLeague.fulfilled, (state, { payload }) => {
       state.teams = payload.teams
       state.filters = payload.filters
       state.name = payload.competition.name
@@ -88,16 +63,13 @@ const teamsSlice: any = createSlice({
       state.isTryFetching = true
       state.isFetching = false
       state.isRejected = false
-    },
-    [fetchTeamsByLeague.rejected]: (state, action: PayloadAction<any>) => {
-      // @ts-ignore
-      const tempRequseError = action.error
-      const temp = tempRequseError.message.split(' ')
-      state.errorMessage = tempRequseError.message
-      state.error = parseInt(temp[temp.length - 1], 10)
+    })
+    builder.addCase(fetchTeamsByLeague.rejected, (state, { payload }) => {
+      state.error = payload!.status
+      state.errorMessage = payload!.message
       state.isFetching = false
       state.isRejected = true
-    },
+    })
   },
 })
 

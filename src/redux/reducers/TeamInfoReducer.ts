@@ -1,27 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { fetchTeamInfo } from '../thunk/TeamInfoThunk'
+import { createSlice } from '@reduxjs/toolkit'
+import { fetchTeamInfo, IFetchTeamInfo } from '../thunk/TeamInfoThunk'
 
-interface player {
-  id: number
-  name: string
-  position: string
-  dateOfBirth: Date
-  nationality: string
-  role: string
-}
-interface IInitialState {
-  infoAboutTeam: {
-    crestUrl: string
-    team: string
-    area: {
-      name: string
-    },
-    clubColors: string
-    founded: any
-    venue: string
-    website: string
-    squad: Array<player>,
-  }
+
+export interface ITeamInfoState {
+  infoAboutTeam: IFetchTeamInfo
   filters: any
   isTryFetching: boolean
   isFetching: boolean
@@ -30,7 +12,7 @@ interface IInitialState {
   errorMessage: string | null
 }
 
-const initialState: IInitialState = {
+const initialState: ITeamInfoState = {
   infoAboutTeam: {
     crestUrl: '',
     team: '',
@@ -55,32 +37,25 @@ const teamInfoSlice: any = createSlice({
   name: 'teamInfo',
   initialState,
   reducers: {},
-  extraReducers: {
-    [fetchTeamInfo.pending]: (state) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchTeamInfo.pending, (state) => {
       state.isFetching = true
       state.errorMessage = null
       state.error = null
-    },
-    [fetchTeamInfo.fulfilled]: (state, { payload }: PayloadAction<any>) => {
+    })
+    builder.addCase(fetchTeamInfo.fulfilled, (state, { payload }) => {
       state.infoAboutTeam = payload
       state.isTryFetching = true
       state.isFetching = false
       state.isRejected = false
-    },
-    [fetchTeamInfo.rejected]: (state, action: PayloadAction<any>) => {
-      // @ts-ignore
-      const tempRequseError = action.error
-      const temp = tempRequseError.message.split(' ')
-      state.errorMessage = tempRequseError.message
-      state.error = parseInt(temp[temp.length - 1], 10)
+    })
+    builder.addCase(fetchTeamInfo.rejected, (state, { payload }) => {
+      state.error = payload!.status
+      state.errorMessage = payload!.message
       state.isFetching = false
       state.isRejected = true
-    },
+    })
   },
 })
-
-// export const fetchProducts = createAction<IFiltersState>(`${productSlice.name}/fetchProducts`)
-// createAsyncThunk()
-// export const { setLoading, setTeams } = productSlice.actions
 
 export const teamInfoReducer = teamInfoSlice.reducer

@@ -1,7 +1,19 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { fetchLeagueMatches } from '../thunk/LeagueThunk'
+import { createSlice } from '@reduxjs/toolkit'
+import { fetchLeagueMatches, ILeagueMatch } from '../thunk/LeagueThunk'
 
-const initialState: any = {
+export interface ILeagueState {
+  matches: Array<ILeagueMatch>
+  count: number
+  name: string
+  filters: any
+  isTryFetching: boolean
+  isFetching: boolean
+  isRejected: boolean
+  error: number | null
+  errorMessage: string | null
+}
+
+const initialState: ILeagueState = {
   matches: [],
   count: 0,
   name: '',
@@ -13,17 +25,17 @@ const initialState: any = {
   errorMessage: null,
 }
 
-const leagueSlice: any = createSlice({
+const leagueSlice = createSlice({
   name: 'league',
   initialState,
   reducers: {},
-  extraReducers: {
-    [fetchLeagueMatches.pending]: (state) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchLeagueMatches.pending, (state) => {
       state.isFetching = true
       state.errorMessage = null
       state.error = null
-    },
-    [fetchLeagueMatches.fulfilled]: (state, { payload }: PayloadAction<any>) => {
+    })
+    builder.addCase(fetchLeagueMatches.fulfilled, (state, { payload }) => {
       state.matches = payload.matches
       state.filters = payload.filters
       state.name = payload.competition.name
@@ -31,17 +43,13 @@ const leagueSlice: any = createSlice({
       state.isTryFetching = true
       state.isFetching = false
       state.isRejected = false
-    },
-    [fetchLeagueMatches.rejected]: (state, action: any) => {
-      // @ts-ignore
-      //@ts-nocheck
-      const tempRequseError = action.error
-      const temp = tempRequseError.message.split(' ')
-      state.errorMessage = tempRequseError.message
-      state.error = parseInt(temp[temp.length - 1], 10)
+    })
+    builder.addCase(fetchLeagueMatches.rejected, (state, { payload }) => {
+      state.error = payload!.status
+      state.errorMessage = payload!.message
       state.isFetching = false
       state.isRejected = true
-    },
+    })
   },
 })
 

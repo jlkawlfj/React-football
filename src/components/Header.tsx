@@ -2,20 +2,22 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-
 import { toggleTheme, toggleLanguage } from '../redux/reducers/AppReducer'
-
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Switch from './common/Switch'
 import classnames from 'classnames'
+import { RootState } from '../redux/reducers'
+
+const ru = 'ru'
+const en = 'en'
 
 const Header = () => {
   const dispatch = useDispatch()
 
-  const { isDarkTheme, language } = useSelector(({ appReducer }: any) => appReducer)
+  const { isDarkTheme, language } = useSelector(({ appState }: RootState) => appState)
   const [toggle, setToggle] = React.useState(isDarkTheme)
-  const [engLang, setEngLang] = React.useState(language === 'en')
+  const [engLang, setEngLang] = React.useState(language === en)
   const { i18n } = useTranslation()
 
   React.useEffect(() => {
@@ -23,8 +25,8 @@ const Header = () => {
   }, [dispatch, toggle])
 
   React.useEffect(() => {
-    dispatch(toggleLanguage({ language: engLang ? 'en' : 'ru'}))
-    i18n.changeLanguage(engLang ? 'en' : 'ru')
+    dispatch(toggleLanguage({ language: engLang ? en : ru}))
+    i18n.changeLanguage(engLang ? en : ru)
   }, [dispatch, engLang, i18n])
 
   return (

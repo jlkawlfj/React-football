@@ -3,9 +3,9 @@ import { Router, Route, Switch, Redirect } from 'react-router-dom'
 import Header from '../components/Header'
 import { history } from '../redux/store'
 import { QueryParamProvider } from 'use-query-params'
-import Preloader from '../components/common/Preloader'
 import { useSelector } from 'react-redux'
 import classnames from 'classnames'
+import { RootState } from '../redux/reducers'
 
 const LeaguesPage = React.lazy(() => import('../pages/LeaguesPage'))
 const TeamsPage = React.lazy(() => import('../pages/TeamsPage'))
@@ -13,7 +13,7 @@ const LeagueCalendar = React.lazy(() => import('../pages/LeagueCalendar'))
 const TeamCalendar = React.lazy(() => import('../pages/TeamCalendar'))
 
 const MainRouter = () => {
-  const isDarkTheme = useSelector(({appReducer}: any) => appReducer.isDarkTheme)
+  const isDarkTheme = useSelector(({appState}: RootState) => appState.isDarkTheme)
 
   return (
     <Router history={history} >
@@ -21,7 +21,7 @@ const MainRouter = () => {
         <div className={classnames('main', {'main-dark': isDarkTheme})}>
           <Header />
           <div className='wrapper'>
-            <React.Suspense fallback={<Preloader/>}>
+            <React.Suspense fallback={('')}>
               <Switch>
                 <Route path='/leagues_page' component={LeaguesPage} />
                 <Route path='/teams_page' component={TeamsPage} />

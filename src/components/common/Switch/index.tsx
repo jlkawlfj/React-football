@@ -3,7 +3,25 @@ import PropTypes from 'prop-types'
 import './style.scss'
 import classnames from 'classnames'
 
-const Switch = ({ id, name, icons, checked, onChange, optionLabels, small, disabled }: any) => {
+interface IProps {
+  id: string
+  name: string
+  icons: Array<React.ReactElement>
+  checked: boolean
+  onChange: (event: any) => void
+  small?: boolean
+  disabled?: boolean
+}
+
+const Switch: React.FC<IProps> = ({
+  id,
+  name,
+  icons,
+  checked,
+  onChange,
+  small,
+  disabled,
+}): React.ReactElement => {
   function handleKeyPress(e: any) {
     if (e.keyCode !== 32) return
 
@@ -56,12 +74,11 @@ Switch.defaultProps = {
 Switch.propTypes = {
   checked: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
-  name: PropTypes.string,
-  optionLabels: PropTypes.array,
+  name: PropTypes.string.isRequired,
   small: PropTypes.bool,
   disabled: PropTypes.bool,
-  icons: PropTypes.array,
-  id: PropTypes.string
+  icons: PropTypes.array.isRequired,
+  id: PropTypes.string.isRequired, 
 }
 
 export default Switch

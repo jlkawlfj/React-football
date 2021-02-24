@@ -2,13 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 interface IProps {
-  message: string
-  error: number
+  message?: string | null
+  error: number | null
 }
-const ErrorBanner: React.FC<IProps> = ({ error, message }: any) => {
+const ErrorBanner: React.FC<IProps> = ({ error, message }): React.ReactElement | null => {
   if (!error) {
     return null
   }
+  
   return (
     <div>
       <div className='error-banner'>
@@ -28,7 +29,7 @@ const ErrorBanner: React.FC<IProps> = ({ error, message }: any) => {
           <Link to='/leaguse_page'>Go home</Link>
         </div>
       </div>
-      <div className='error-banner__additional-message'>{message || ''}</div>
+      <div className='error-banner__additional-message'>{`Request failed with status code ${error}`}</div>
     </div>
   )
 }

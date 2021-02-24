@@ -30,12 +30,19 @@
   border-radius: 2px;
   background: gray;
 }
+.match-card__scores--finished {
+  background: #333;
+  border: 1px solid #333;
+}
 .match-card__scores--win {
+  border: none;
   background: #00aa32;
 }
 .match-card__scores--draw {
+  border: none;
   background: #ffc60d;
 }
 .match-card__scores--lose {
+  border: none;
   background: #ff003c;
 }

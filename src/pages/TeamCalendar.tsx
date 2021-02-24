@@ -13,6 +13,7 @@ import NoFound from '../components/common/NoFound'
 import MatchCard from '../components/MatchCard'
 import TeamCard from '../components/TeamCard'
 import TeamCardLoader from '../components/TeamCardLoader'
+import { RootState } from '../redux/reducers'
 
 const TeamCalendar: React.FC = () => {
   const [dateFrom, setDateFrom] = React.useState(new Date('2020/04/08'))
@@ -21,14 +22,14 @@ const TeamCalendar: React.FC = () => {
   const { t } = useTranslation(['teamCalendar'])
 
   const dispatch = useDispatch()
-  const { matches, count, isTryFetching, isFetching, isRejected, error, errorMessage } = useSelector(({ teamList }: any) => teamList)
-  const  isFetchingInfo = useSelector(({ teamInfo }: any) => teamInfo.isFetching)
-  const { infoAboutTeam } = useSelector(({ teamInfo }: any) => teamInfo)
-  const { language } = useSelector(({ appReducer }: any) => appReducer)
+  const { matches, count, isTryFetching, isFetching, isRejected, error, errorMessage } = useSelector(({ teamListState }: RootState) => teamListState)
+  const  isFetchingInfo = useSelector(({ teamInfoState }: RootState) => teamInfoState.isFetching)
+  const { infoAboutTeam } = useSelector(({ teamInfoState }: RootState) => teamInfoState)
+  const { language } = useSelector(({ appState }: RootState) => appState)
 
   React.useEffect(() => {
     dispatch(
-      fetchTeamInfo({id})
+      fetchTeamInfo({id: id!})
     )
   }, [dispatch, id])
 
@@ -64,7 +65,7 @@ const TeamCalendar: React.FC = () => {
         <div>
           {!isFetching ? (
             matches.map((match: any) => {
-              return <MatchCard key={match.id} match={match} />
+              return <MatchCard colorResult={true} match={match} finished={t('finished')} postroned={t('postroned')} scheduled={t('scheduled')} key={match.id}/>
             })
           ) : (
             <Preloader />

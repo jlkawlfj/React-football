@@ -1,7 +1,18 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { fetchAllLeagues } from '../thunk/LeaguesThunk'
+import { createSlice } from '@reduxjs/toolkit'
+import { fetchAllLeagues, ILeague } from '../thunk/LeaguesThunk'
 
-const initialState: any = {
+export interface ILeagues {
+  leagues: Array<ILeague>
+  count: number
+  filters: any
+  isTryFetching: boolean
+  isFetching: boolean
+  isRejected: boolean
+  error: number | null
+  errorMessage: string | null
+}
+
+const initialState: ILeagues = {
   leagues: [],
   count: 0,
   filters: {},
@@ -12,33 +23,30 @@ const initialState: any = {
   errorMessage: null,
 }
 
-const leaguesSlice: any = createSlice({
+const leaguesSlice = createSlice({
   name: 'leagues',
   initialState,
   reducers: {},
-  extraReducers: {
-    [fetchAllLeagues.pending]: (state) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchAllLeagues.pending, (state) => {
       state.isFetching = true
       state.errorMessage = null
       state.error = null
-    },
-    [fetchAllLeagues.fulfilled]: (state, { payload }: PayloadAction<any>) => {
+    })
+    builder.addCase(fetchAllLeagues.fulfilled, (state, { payload }) => {
       state.leagues = payload.competitions
       state.filters = payload.filters
       state.count = payload.count
       state.isTryFetching = true
       state.isFetching = false
       state.isRejected = false
-    },
-    [fetchAllLeagues.rejected]: (state, action: PayloadAction<any>) => {
-      // @ts-ignore
-      const tempRequseError = action.error
-      const temp = tempRequseError.message.split(' ')
-      state.errorMessage = tempRequseError.message
-      state.error = parseInt(temp[temp.length - 1], 10)
+    })
+    builder.addCase(fetchAllLeagues.rejected, (state, { payload }) => {
+      state.error = payload!.status
+      state.errorMessage = payload!.message
       state.isFetching = false
       state.isRejected = true
-    },
+    })
   },
 })
 
